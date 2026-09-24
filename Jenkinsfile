@@ -31,7 +31,7 @@ pipeline {
             steps {
                 dir("backend") {
                     writeFile file: 'Dockerfile', text: """
-                    FROM node:20-alpine as builder
+                    FROM node:20-slim as builder
 
                     WORKDIR /app
 
@@ -39,13 +39,17 @@ pipeline {
 
                     RUN npm install
 
-                    FROM node:20-alpine
+                    FROM node:20-slim
 
                     WORKDIR /app
 
                     COPY --from=builder /app/node_modules ./node_modules
 
                     COPY . .
+
+                    RUN adduser --disabled-password bjit && chown -R bjit /app
+
+                    USER bjit
 
                     CMD ["node", "server.js"]
 
