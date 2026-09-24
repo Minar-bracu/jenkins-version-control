@@ -41,7 +41,7 @@ pipeline {
 
                     COPY package*.json ./
 
-                    RUN npm install
+                    RUN sudo npm install
 
                     FROM node:20-slim
 
