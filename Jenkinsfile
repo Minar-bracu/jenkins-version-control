@@ -32,6 +32,9 @@ pipeline {
                 dir("backend") {
                     writeFile file: 'Dockerfile', text: """
                     FROM node:20-slim as builder
+                    RUN adduser --disabled-password bjit && chown -R bjit /app
+
+                    USER bjit
 
                     WORKDIR /app
 
