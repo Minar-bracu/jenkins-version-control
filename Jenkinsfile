@@ -34,9 +34,7 @@ pipeline {
                     FROM node:20-slim as builder
 
                     WORKDIR /app
-                    RUN adduser --disabled-password bjit && chown -R bjit /app
 
-                    USER bjit
 
 
                     COPY package*.json ./
@@ -46,9 +44,7 @@ pipeline {
                     FROM node:20-slim
 
                     WORKDIR /app
-                    RUN adduser --disabled-password bjit && chown -R bjit /app
 
-                    USER bjit
 
                     COPY --from=builder /app/node_modules ./node_modules
 
